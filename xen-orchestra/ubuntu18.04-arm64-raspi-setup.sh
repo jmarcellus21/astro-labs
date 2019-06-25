@@ -9,4 +9,4 @@ sudo timedatectl set-timezone America/New_York
 sudo apt-get update -y && sudo apt-get upgrade -y
 
 # Add swap file
-sudo apt-get install dphys-swapfile
+sudo apt-get install dphys-swapfile -y
