@@ -42,3 +42,12 @@ yarn build
 # Create config file for xo-server
 cd packages/xo-server
 cp sample.config.toml .xo-server.toml
+
+# Install XO as system service
+# Download forever-service packages
+yarn global add forever
+yarn global add forever-service
+cd /home/ubuntu/xen-orchestra/packages/xo-server/bin/
+forever-service install -s xo-server orchestra
+service orchestra start
+service orchestra status
