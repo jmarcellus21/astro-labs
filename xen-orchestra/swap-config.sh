@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Check if user is root
+
 # Add swap file
 sudo apt-get install dphys-swapfile -y
 
