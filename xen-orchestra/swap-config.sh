@@ -17,3 +17,6 @@ rm raspi3b-swap-config.txt
 echo "**Restarting swapfile service"
 sudo /etc/init.d/dphys-swapfile stop
 sudo /etc/init.d/dphys-swapfile start
+
+# Display amount of memory
+free -m
