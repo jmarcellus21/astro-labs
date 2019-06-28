@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Add swap file
+sudo apt-get install dphys-swapfile -y
+
 echo "**Retrieving swap config"
 wget https://github.com/jmarcellus21/astro-labs/raw/master/xen-orchestra/raspi3b-swap-config.txt
 
