@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Disable auto-updating service
 sudo systemctl disable apt-daily.timer
 sudo systemctl disable apt-daily-upgrade.timer
