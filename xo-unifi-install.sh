@@ -7,7 +7,7 @@
 cd /home/ubuntu
 
 # Download respective install scripts
-echo "##[Downloading install scripts]##
+echo "##[Downloading install scripts]##"
 wget https://github.com/jmarcellus21/astro-labs/raw/master/xen-orchestra/swap-config.sh
 wget https://github.com/jmarcellus21/astro-labs/raw/master/xen-orchestra/ubuntu18.04-arm64-raspi-setup.sh
 wget https://github.com/jmarcellus21/astro-labs/raw/master/xen-orchestra/xen-orchestra-install.sh
