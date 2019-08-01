@@ -12,3 +12,6 @@ sudo apt-get update -y && sudo apt-get upgrade -y
 
 # Add swap file
 sudo apt-get install dphys-swapfile -y
+
+# Install Git Subversion
+sudo apt-get install subversion
