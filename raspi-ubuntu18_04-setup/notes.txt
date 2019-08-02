@@ -1,2 +1,0 @@
-- 'sed' command to replace ip address in netplan config file
-https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
