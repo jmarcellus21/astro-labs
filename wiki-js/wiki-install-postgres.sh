@@ -18,9 +18,9 @@ sudo apt install -y postgresql nodejs
 
 # download and install WikiJS
 wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.4.107/wiki-js.tar.gz
-mkdir -p /opt/wiki/db
-tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
-cd /opt/wiki
+sudo mkdir -p /opt/wiki/db
+sudo tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
+sudo cd /opt/wiki
 cp config.sample.yml config.yml
 
 # modify config file to use port 80
@@ -31,7 +31,7 @@ sed -in '47 s/^/#/' config.yml
 pg_ctlcluster 12 main start
 
 # add wikijs user
-useradd --system --shell /bin/bash wikijs
+sudo useradd --system --shell /bin/bash wikijs
 
 # create DB
 sudo -u postgres psql -c "CREATE DATABASE wiki;"
@@ -43,7 +43,7 @@ sudo -u postgres psql -c "create user wikijs with password 'wikijsrocks';"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE wiki TO wikijs;"
 
 # make wiki user owner of wiki files
-chown -R wikijs:wikijs /opt/wiki
+sudo chown -R wikijs:wikijs /opt/wiki
 
 # enable non-privileged users to use privileged ports
 sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
@@ -68,7 +68,7 @@ WantedBy=multi-user.target
 EOF
 
 # start service
-systemctl daemon-reload
-systemctl enable wiki
-systemctl start wiki
-systemctl status wiki
+sudo systemctl daemon-reload
+sudo systemctl enable wiki
+sudo systemctl start wiki
+sudo systemctl status wiki
