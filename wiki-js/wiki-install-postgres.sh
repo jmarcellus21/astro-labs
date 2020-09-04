@@ -49,7 +49,7 @@ sudo chown -R wikijs:wikijs /opt/wiki
 sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
 
 # create service
-cat > /etc/systemd/system/wiki.service <<EOF
+sudo cat > /etc/systemd/system/wiki.service <<EOF
 [Unit]
 Description=Wiki.js
 After=network.target
