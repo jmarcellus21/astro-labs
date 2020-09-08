@@ -8,7 +8,7 @@ sudo apt install -y software-properties-common apt-transport-https curl wget vim
 curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 sudo apt-get install -y nodejs sqlite3
 
-wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.4.107/wiki-js.tar.gz
+wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.5.126/wiki-js.tar.gz
 mkdir -p /opt/wiki/db
 tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
 cd /opt/wiki
