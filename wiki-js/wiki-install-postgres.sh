@@ -17,7 +17,7 @@ sudo apt update
 sudo apt install -y postgresql nodejs
 
 # download and install WikiJS
-wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.4.107/wiki-js.tar.gz
+wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.5.126/wiki-js.tar.gz
 sudo mkdir -p /opt/wiki/db
 sudo tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
 cd /opt/wiki
