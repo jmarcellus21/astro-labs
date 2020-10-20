@@ -35,8 +35,8 @@ sudo tar xzf wiki-js.tar.gz -C $INSTALL_DIR
 cp $INSTALL_DIR/config.sample.yml $INSTALL_DIR/config.yml
 
 # modify config file to use port 80
-sed -in 's/3000/80/' config.yml
-sed -in '47 s/^/#/' config.yml
+sed -in 's/3000/80/' $INSTALL_DIR/config.yml
+sed -in '47 s/^/#/' $INSTALL_DIR/config.yml
 
 # start postgreSQL
 pg_ctlcluster 12 main start
