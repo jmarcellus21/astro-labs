@@ -24,13 +24,12 @@ sudo cp $INSTALL_DIR/config.yml ~/config.yml.bak
 sudo rm -rf $INSTALL_DIR/*
 
 # dowload latest version of wiki.js
-wget -P https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
+wget https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
 
 # extract the package to installation directory
 sudo tar xzf wiki-js.tar.gz -C $INSTALL_DIR
 
 # restore config.yml file
-cd $INSTALL_DIR
 cp ~/config.yml.bak $INSTALL_DIR/config.yml
 
 # give wikijs service account ownership of files
