@@ -1,6 +1,18 @@
 #!/bin/bash
 # install WikiJS w/ PostgreSQL
 
+get_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
+REPO="Requarks/wiki"
+SERVICE_NAME="wiki"
+INSTALL_DIR="/opt/wiki"
+
+LATEST_VERSION=$(get_latest_release $REPO)
+
 # install software dependencies
 sudo apt update
 sudo apt install -y gnupg2 software-properties-common apt-transport-https curl wget vim
@@ -17,10 +29,9 @@ sudo apt update
 sudo apt install -y postgresql nodejs
 
 # download and install WikiJS
-wget -P /tmp https://github.com/Requarks/wiki/releases/download/2.5.144/wiki-js.tar.gz
-sudo mkdir -p /opt/wiki/db
-sudo tar xzf /tmp/wiki-js.tar.gz -C /opt/wiki
-cd /opt/wiki
+wget -P https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
+sudo tar xzf /tmp/wiki-js.tar.gz -C $INSTALL_DIR
+cd $INSTALL_DIR
 cp config.sample.yml config.yml
 
 # modify config file to use port 80
@@ -43,7 +54,7 @@ sudo -u postgres psql -c "create user wikijs with password 'wikijsrocks';"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE wiki TO wikijs;"
 
 # make wiki user owner of wiki files
-sudo chown -R wikijs:wikijs /opt/wiki
+sudo chown -R wikijs:wikijs $INSTALL_DIR
 
 # enable non-privileged users to use privileged ports
 sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
@@ -61,7 +72,7 @@ Restart=always
 # Consider creating a dedicated user for Wiki.js here:
 User=wikijs
 Environment=NODE_ENV=production
-WorkingDirectory=/opt/wiki
+WorkingDirectory=$INSTALL_DIR
 
 [Install]
 WantedBy=multi-user.target
