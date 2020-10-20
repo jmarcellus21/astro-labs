@@ -29,8 +29,8 @@ sudo apt update
 sudo apt install -y postgresql nodejs
 
 # download and install WikiJS
-wget -P https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
-sudo tar xzf /tmp/wiki-js.tar.gz -C $INSTALL_DIR
+wget https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
+sudo tar xzf wiki-js.tar.gz -C $INSTALL_DIR
 cd $INSTALL_DIR
 cp config.sample.yml config.yml
 
@@ -83,3 +83,5 @@ sudo systemctl daemon-reload
 sudo systemctl enable wiki
 sudo systemctl start wiki
 sudo systemctl status wiki
+
+rm wiki-js.tar.gz
