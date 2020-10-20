@@ -1,38 +1,42 @@
 #!/bin/bash
-# Script to update WikiJS to latest version
+# Wiki JS upgrade script
 
-# TO-DO
-# Webhook to get latest version from GitHub
+get_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
 
-VERSION="2.5.144"
-INSTALL_DIR="/opt"
-WIKI_USER="wikijs"
+REPO="Requarks/wiki"
+SERVICE_NAME="wiki"
+INSTALL_DIR="/opt/wiki"
 
-cd $INSTALL_DIR
+LATEST_VERSION=$(get_latest_release $REPO)
+echo "HEllo v$LATEST_VERSION"
 
-# stop wiki servicey
-sudo systemctl stop wiki
+# stop wiki service
+sudo systemctl stop $SERVICE_NAME
 
 #backup config.yml file
-sudo cp wiki/config.yml ~/config.yml.bak
+sudo cp $INSTALL_DIR/config.yml ~/config.yml.bak
 
 # delete application folder
-sudo rm -rf wiki/*
+sudo rm -rf $INSTALL_DIR/*
 
 # dowload latest version of wiki.js
-wget -P /tmp https://github.com/Requarks/wiki/releases/download/$VERSION/wiki-js.tar.gz
+wget -P https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
 
-# extract the package
-sudo tar xzf /tmp/wiki-js.tar.gz -C ./wiki
+# extract the package to installation directory
+sudo tar xzf wiki-js.tar.gz -C $INSTALL_DIR
 
 # restore config.yml file
-sudo cp ~/config.yml.bak ./wiki/config.yml
+cd $INSTALL_DIR
+cp ~/config.yml.bak $INSTALL_DIR/config.yml
 
-# give wikijs service ownership of files
-sudo chown -R $WIKI_USER:$WIKI_USER wiki/*
+# give wikijs service account ownership of files
+sudo chown -R wikijs:wikijs $INSTALL_DIR/*
 
 # start wiki
-sudo systemctl start wiki
+systemctl start wiki
 
-# cleanup files
-rm /tmp/wiki-js.tar.gz
+sudo rm wiki-js.tar.gz
