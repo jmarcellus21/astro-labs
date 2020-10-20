@@ -32,8 +32,7 @@ sudo apt install -y postgresql nodejs
 wget -O https://github.com/Requarks/wiki/releases/download/$LATEST_VERSION/wiki-js.tar.gz
 mkdir $INSTALL_DIR
 sudo tar xzf wiki-js.tar.gz -C $INSTALL_DIR
-cd $INSTALL_DIR
-cp config.sample.yml config.yml
+cp $INSTALL_DIR/config.sample.yml $INSTALL_DIR/config.yml
 
 # modify config file to use port 80
 sed -in 's/3000/80/' config.yml
